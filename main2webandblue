@@ -1,0 +1,247 @@
+import network
+import socket
+import time
+import os
+from machine import Pin
+import motores2
+import buzzer
+
+# LED DE LA PICO W
+
+led = Pin("LED", Pin.OUT)
+led.on()
+
+# CONFIGURACION WIFI
+
+SSID = "PythonDidaktiko"
+PASSWORD = "python1234"
+
+def start_ap():
+
+    ap = network.WLAN(network.AP_IF)
+
+    ap.config(
+        essid=SSID,
+        password=PASSWORD
+    )
+
+    ap.active(True)
+
+    while not ap.active():
+        time.sleep(0.1)
+
+    print("Access Point activo")
+    print("SSID:", SSID)
+    print("IP:", ap.ifconfig()[0])
+
+    return ap
+
+# TIPO DE ARCHIVO
+
+def get_content_type(path):
+
+    if path.endswith(".css"):
+        return "text/css"
+
+    if path.endswith(".js"):
+        return "application/javascript"
+
+    if path.endswith(".png"):
+        return "image/png"
+
+    if path.endswith(".jpg") or path.endswith(".jpeg"):
+        return "image/jpeg"
+
+    return "text/html; charset=utf-8"
+
+# ABRIR ARCHIVO
+
+def serve_file(path):
+
+    if path == "/" or path == "":
+        path = "/index.html"
+
+    path = path.lstrip("/")
+
+    try:
+        f = open(path, "rb")
+        return f, get_content_type(path)
+
+    except:
+        return None, "text/html; charset=utf-8"
+
+# INICIAR ACCESS POINT
+
+ap = start_ap()
+
+# CREAR SERVIDOR
+
+addr = socket.getaddrinfo(
+    "0.0.0.0",
+    80
+)[0][-1]
+
+s = socket.socket()
+
+s.setsockopt(
+    socket.SOL_SOCKET,
+    socket.SO_REUSEADDR,
+    1
+)
+
+s.bind(addr)
+
+s.listen(5)
+
+s.settimeout(0.05)
+
+print("Servidor escuchando en:")
+print("http://192.168.4.1")
+
+# SERVIDOR PRINCIPAL
+
+while True:
+
+    buzzer.update()
+
+    try:
+        cl, addr = s.accept()
+
+    except OSError:
+        continue
+
+    try:
+
+        request = cl.recv(1024).decode(
+            "utf-8",
+            "ignore"
+        )
+
+        first_line = request.split("\r\n")[0]
+
+        partes = first_line.split(" ")
+
+        if len(partes) > 1:
+            path = partes[1]
+        else:
+            path = "/"
+
+        print("Peticion:", path)
+
+        # CONTROL DE MOTORES
+
+        if path.startswith("/robot?cmd="):
+
+            comando = path.split(
+                "/robot?cmd="
+            )[1]
+
+            print("COMANDO ROBOT:", comando)
+
+            motores2.comando(comando)
+
+            respuesta = (
+                "HTTP/1.0 200 OK\r\n"
+                "Content-Type: text/plain; "
+                "charset=utf-8\r\n"
+                "Connection: close\r\n"
+                "\r\n"
+                "OK"
+            )
+
+            cl.send(respuesta.encode())
+
+            continue
+
+        # CONTROL DEL BUZZER
+
+        if path.startswith("/buzzer?cmd="):
+
+            comando = path.split(
+                "/buzzer?cmd="
+            )[1]
+
+            print("COMANDO BUZZER:", comando)
+
+            buzzer.comando(comando)
+
+            respuesta = (
+                "HTTP/1.0 200 OK\r\n"
+                "Content-Type: text/plain; "
+                "charset=utf-8\r\n"
+                "Connection: close\r\n"
+                "\r\n"
+                "OK"
+            )
+
+            cl.send(respuesta.encode())
+
+            continue
+
+        # SERVIR ARCHIVOS WEB
+
+        f, content_type = serve_file(path)
+
+        # ARCHIVO NO ENCONTRADO
+
+        if f is None:
+
+            contenido = (
+                "<h1>404 - Pagina no encontrada</h1>"
+            ).encode()
+
+            respuesta = (
+                "HTTP/1.0 404 Not Found\r\n"
+                "Content-Type: text/html; "
+                "charset=utf-8\r\n"
+                "Content-Length: "
+                + str(len(contenido))
+                + "\r\n"
+                "Connection: close\r\n"
+                "\r\n"
+            )
+
+            cl.send(respuesta.encode())
+
+            cl.send(contenido)
+
+        else:
+
+            tamaño = os.stat(path)[6]
+
+            respuesta = (
+                "HTTP/1.0 200 OK\r\n"
+                "Content-Type: "
+                + content_type
+                + "\r\n"
+                "Content-Length: "
+                + str(tamaño)
+                + "\r\n"
+                "Connection: close\r\n"
+                "\r\n"
+            )
+
+            cl.send(respuesta.encode())
+
+            while True:
+
+                bloque = f.read(1024)
+
+                if not bloque:
+                    break
+
+                cl.send(bloque)
+
+            f.close()
+
+    except Exception as e:
+
+        print("Error:", e)
+
+    finally:
+
+        try:
+            cl.close()
+
+        except:
+            pass

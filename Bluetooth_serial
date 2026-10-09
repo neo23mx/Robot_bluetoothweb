@@ -1,0 +1,121 @@
+import bluetooth
+from micropython import const
+
+_IRQ_CENTRAL_CONNECT = const(1)
+_IRQ_CENTRAL_DISCONNECT = const(2)
+_IRQ_GATTS_WRITE = const(3)
+
+
+class BluetoothSerial:
+
+    def __init__(self, nombre="DIDAKTIKO23"):
+
+        self.ble = bluetooth.BLE()
+        self.ble.active(True)
+
+        self.nombre = nombre
+        self.buffer = []
+        self.conexion = None
+
+        # Servicio BLE tipo serial
+        servicio_uuid = bluetooth.UUID(0xFFE0)
+        caracteristica_uuid = bluetooth.UUID(0xFFE1)
+
+        caracteristica = (
+            caracteristica_uuid,
+            bluetooth.FLAG_READ |
+            bluetooth.FLAG_WRITE |
+            bluetooth.FLAG_WRITE_NO_RESPONSE |
+            bluetooth.FLAG_NOTIFY
+        )
+
+        servicio = (
+            servicio_uuid,
+            (caracteristica,)
+        )
+
+        ((self.handle,),) = self.ble.gatts_register_services(
+            (servicio,)
+        )
+
+        self.ble.gatts_set_buffer(self.handle, 100)
+
+        self.ble.irq(self._evento)
+
+        self._anunciar()
+
+
+    def _publicidad(self):
+
+        nombre = self.nombre.encode()
+
+        payload = bytearray(b'\x02\x01\x06')
+
+        # Nombre Bluetooth
+        payload += bytes(
+            (len(nombre) + 1, 0x09)
+        ) + nombre
+
+        # Servicio FFE0
+        payload += b'\x03\x03\xe0\xff'
+
+        return payload
+
+
+    def _anunciar(self):
+
+        self.ble.gap_advertise(
+            500000,
+            adv_data=self._publicidad()
+        )
+
+
+    def _evento(self, event, data):
+
+        if event == _IRQ_CENTRAL_CONNECT:
+
+            self.conexion = data[0]
+            print("Bluetooth conectado")
+
+
+        elif event == _IRQ_CENTRAL_DISCONNECT:
+
+            self.conexion = None
+            print("Bluetooth desconectado")
+
+            self._anunciar()
+
+
+        elif event == _IRQ_GATTS_WRITE:
+
+            conexion, atributo = data
+
+            if atributo == self.handle:
+
+                dato = self.ble.gatts_read(self.handle)
+
+                try:
+                    dato = dato.decode().strip()
+                except:
+                    dato = ""
+
+                if dato:
+                    self.buffer.append(dato)
+
+
+    def available(self):
+
+        return len(self.buffer) > 0
+
+
+    def read(self):
+
+        if self.available():
+            return self.buffer.pop(0)
+
+        return None
+
+
+    def write(self, dato):
+        print("Enviar:", dato)   # solo prueba
+        return

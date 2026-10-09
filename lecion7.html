@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 7 - Diccionarios: el robot aprende a organizar información</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 Lección 7: ¡El robot aprende a organizar información!</h1>
+  <p>Diccionarios en Python para robótica y automatización</p>
+</header>
+
+<section>
+  <h2>🚀 Un robot necesita organizar sus datos</h2>
+
+  <p>
+    Hasta ahora hemos aprendido a utilizar variables, condiciones,
+    bucles, listas y funciones.
+  </p>
+
+  <p>
+    Pero imagina que nuestro robot tiene muchos datos:
+  </p>
+
+  <ul>
+    <li>Nombre del robot.</li>
+    <li>Número de ruedas.</li>
+    <li>Velocidad.</li>
+    <li>Dirección.</li>
+    <li>Estado.</li>
+    <li>Distancia al obstáculo.</li>
+  </ul>
+
+  <p>
+    Podríamos guardar cada dato en una variable diferente, pero cuando
+    un proyecto crece, puede resultar difícil organizar toda esa información.
+  </p>
+
+  <p>
+    Python tiene una herramienta especialmente útil para esto:
+    <strong>los diccionarios</strong>.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 1. ¿Qué es un diccionario?</h2>
+
+  <p>
+    Un diccionario permite guardar información utilizando una relación
+    entre una <strong>clave</strong> y un <strong>valor</strong>.
+  </p>
+
+  <p>
+    Podemos imaginarlo como una ficha de información de nuestro robot.
+  </p>
+
+  <pre><code>robot = {
+    "nombre": "Rover",
+    "ruedas": 4,
+    "velocidad": 50,
+    "estado": "detenido"
+}</code></pre>
+
+  <p>
+    Aquí tenemos cuatro datos.
+  </p>
+
+  <ul>
+    <li><strong>"nombre"</strong> → "Rover"</li>
+    <li><strong>"ruedas"</strong> → 4</li>
+    <li><strong>"velocidad"</strong> → 50</li>
+    <li><strong>"estado"</strong> → "detenido"</li>
+  </ul>
+
+  <p>
+    La palabra que está a la izquierda es la <strong>clave</strong>.
+    El dato que está a la derecha es el <strong>valor</strong>.
+  </p>
+</section>
+
+<section>
+  <h2>🔎 2. ¿Cómo obtenemos un dato?</h2>
+
+  <p>
+    Para obtener información de un diccionario utilizamos su clave.
+  </p>
+
+  <pre><code>robot = {
+    "nombre": "Rover",
+    "ruedas": 4,
+    "velocidad": 50,
+    "estado": "detenido"
+}
+
+print(robot["velocidad"])</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>50</code></pre>
+
+  <p>
+    También podemos obtener el estado del robot:
+  </p>
+
+  <pre><code>print(robot["estado"])</code></pre>
+
+  <p>
+    Resultado:
+  </p>
+
+  <pre><code>detenido</code></pre>
+
+</section>
+
+<section>
+  <h2>🧩 3. Ejercicio guiado: crear la ficha de nuestro robot</h2>
+
+  <p>
+    Ahora vamos a construir nuestro primer diccionario paso a paso.
+    No solamente vamos a copiar el resultado: vamos a entender cómo
+    se construye.
+  </p>
+
+  <h3>🔹 Paso 1: crear el diccionario</h3>
+
+  <p>
+    Primero escribimos el nombre que tendrá nuestro diccionario.
+  </p>
+
+  <pre><code>robot = {}</code></pre>
+
+  <p>
+    Las llaves <strong>{ }</strong> indican que estamos creando
+    un diccionario vacío.
+  </p>
+
+  <h3>🔹 Paso 2: agregar el nombre del robot</h3>
+
+  <pre><code>robot["nombre"] = "Rover"</code></pre>
+
+  <p>
+    Ahora el diccionario contiene una clave llamada
+    <strong>nombre</strong> y su valor es <strong>Rover</strong>.
+  </p>
+
+  <h3>🔹 Paso 3: agregar el número de ruedas</h3>
+
+  <pre><code>robot["ruedas"] = 4</code></pre>
+
+  <p>
+    Ahora tenemos otro dato.
+  </p>
+
+  <h3>🔹 Paso 4: agregar la velocidad</h3>
+
+  <pre><code>robot["velocidad"] = 50</code></pre>
+
+  <h3>🔹 Paso 5: agregar el estado</h3>
+
+  <pre><code>robot["estado"] = "detenido"</code></pre>
+
+  <h3>🔹 Paso 6: revisar toda la información</h3>
+
+  <pre><code>print(robot)</code></pre>
+
+  <p>
+    Nuestro programa completo queda así:
+  </p>
+
+  <pre><code>robot = {}
+
+robot["nombre"] = "Rover"
+robot["ruedas"] = 4
+robot["velocidad"] = 50
+robot["estado"] = "detenido"
+
+print(robot)</code></pre>
+
+  <p>
+    🎯 Acabamos de construir paso a paso una ficha digital de nuestro
+    robot.
+  </p>
+</section>
+
+<section>
+  <h2>⚙️ 4. Cambiar información</h2>
+
+  <p>
+    Una de las ventajas de los diccionarios es que podemos modificar
+    sus valores.
+  </p>
+
+  <pre><code>robot["estado"] = "avanzando"</code></pre>
+
+  <p>
+    También podemos cambiar la velocidad:
+  </p>
+
+  <pre><code>robot["velocidad"] = 70</code></pre>
+
+  <p>
+    Podemos comprobar los cambios:
+  </p>
+
+  <pre><code>print(robot)</code></pre>
+
+</section>
+
+<section>
+  <h2>➕ 5. Agregar información</h2>
+
+  <p>
+    También podemos agregar nuevas claves al diccionario.
+  </p>
+
+  <pre><code>robot["sensor"] = "ultrasonico"</code></pre>
+
+  <p>
+    Ahora nuestro robot tiene información sobre el sensor que utiliza.
+  </p>
+
+  <pre><code>print(robot)</code></pre>
+
+</section>
+
+<section>
+  <h2>🤖 6. Una ficha completa de nuestro rover</h2>
+
+  <p>
+    Podemos utilizar un diccionario para describir gran parte de
+    nuestro robot de cuatro ruedas.
+  </p>
+
+  <pre><code>robot = {
+    "nombre": "Rover",
+    "ruedas": 4,
+    "velocidad": 60,
+    "direccion": "adelante",
+    "estado": "activo",
+    "sensor": "ultrasonico"
+}
+
+print(robot["nombre"])
+print(robot["ruedas"])
+print(robot["velocidad"])
+print(robot["direccion"])
+print(robot["estado"])
+print(robot["sensor"])</code></pre>
+
+  <p>
+    Ahora tenemos la información principal del robot organizada dentro
+    de una sola estructura.
+  </p>
+</section>
+
+<section>
+  <h2>📡 7. Un sensor también puede ser un diccionario</h2>
+
+  <p>
+    Pensemos ahora en un sensor de temperatura.
+  </p>
+
+  <pre><code>sensor = {
+    "tipo": "temperatura",
+    "pin": 14,
+    "valor": 28,
+    "unidad": "C"
+}</code></pre>
+
+  <p>
+    Podemos consultar el valor:
+  </p>
+
+  <pre><code>print(sensor["valor"])</code></pre>
+
+  <p>
+    O consultar el tipo:
+  </p>
+
+  <pre><code>print(sensor["tipo"])</code></pre>
+
+  <p>
+    El diccionario nos permite guardar tanto el valor del sensor como
+    información sobre el propio dispositivo.
+  </p>
+</section>
+
+<section>
+  <h2>🧩 8. Ejercicio guiado: un sensor que cambia su lectura</h2>
+
+  <p>
+    Ahora construiremos paso a paso un pequeño sistema que representa
+    un sensor de temperatura.
+  </p>
+
+  <h3>🔹 Paso 1: crear el sensor</h3>
+
+  <pre><code>sensor = {
+    "tipo": "temperatura",
+    "valor": 28,
+    "unidad": "C"
+}</code></pre>
+
+  <h3>🔹 Paso 2: leer el valor</h3>
+
+  <pre><code>print(sensor["valor"])</code></pre>
+
+  <p>
+    Python mostrará:
+  </p>
+
+  <pre><code>28</code></pre>
+
+  <h3>🔹 Paso 3: imaginar una nueva lectura</h3>
+
+  <p>
+    Supongamos que el sensor ahora detecta 34 °C.
+  </p>
+
+  <pre><code>sensor["valor"] = 34</code></pre>
+
+  <h3>🔹 Paso 4: comprobar la nueva lectura</h3>
+
+  <pre><code>print(sensor["valor"])</code></pre>
+
+  <p>
+    Ahora Python mostrará:
+  </p>
+
+  <pre><code>34</code></pre>
+
+  <p>
+    🎯 Observa la idea:
+    <strong>el diccionario mantiene la información del sensor y podemos
+    actualizar su valor cuando recibimos una nueva lectura.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧠 9. Diccionario + if: el sensor provoca una decisión</h2>
+
+  <p>
+    Ahora combinaremos los diccionarios con los condicionales que
+    aprendimos en la Lección 3.
+  </p>
+
+  <pre><code>sensor = {
+    "tipo": "temperatura",
+    "valor": 34
+}
+
+if sensor["valor"] &gt; 30:
+    print("Temperatura alta")
+    print("Encender ventilador")
+
+else:
+    print("Temperatura adecuada")
+    print("Mantener ventilador apagado")</code></pre>
+
+  <p>
+    Python consulta el valor guardado dentro del diccionario y después
+    toma una decisión.
+  </p>
+
+  <p>
+    <strong>Diccionario → dato del sensor → decisión → acción</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🌱 10. Un sistema de invernadero</h2>
+
+  <p>
+    Podemos representar varios datos de un invernadero mediante
+    un diccionario.
+  </p>
+
+  <pre><code>invernadero = {
+    "temperatura": 32,
+    "humedad_suelo": 35,
+    "ventilador": "apagado",
+    "bomba": "apagada"
+}</code></pre>
+
+  <p>
+    Podemos revisar la temperatura:
+  </p>
+
+  <pre><code>if invernadero["temperatura"] &gt; 30:
+    invernadero["ventilador"] = "encendido"
+
+print(invernadero["ventilador"])</code></pre>
+
+  <p>
+    Python modificó el estado del ventilador dentro del diccionario.
+  </p>
+</section>
+
+<section>
+  <h2>💧 11. Automatizando el riego</h2>
+
+  <p>
+    Utilicemos ahora el mismo principio para controlar una bomba.
+  </p>
+
+  <pre><code>invernadero = {
+    "humedad_suelo": 30,
+    "bomba": "apagada"
+}
+
+if invernadero["humedad_suelo"] &lt; 40:
+    invernadero["bomba"] = "encendida"
+
+else:
+    invernadero["bomba"] = "apagada"
+
+print(invernadero["bomba"])</code></pre>
+
+  <p>
+    El programa analiza la información y actualiza el estado de la bomba.
+  </p>
+
+  <p>
+    🌱 <strong>Sensor → Python → decisión → actuador</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🔄 12. Recorrer un diccionario</h2>
+
+  <p>
+    También podemos utilizar un bucle <strong>for</strong> para
+    recorrer la información almacenada.
+  </p>
+
+  <pre><code>robot = {
+    "nombre": "Rover",
+    "ruedas": 4,
+    "velocidad": 60,
+    "estado": "activo"
+}
+
+for clave in robot:
+    print(clave)</code></pre>
+
+  <p>
+    Python recorrerá todas las claves del diccionario.
+  </p>
+
+  <p>
+    También podemos obtener la clave y su valor:
+  </p>
+
+  <pre><code>for clave, valor in robot.items():
+    print(clave, ":", valor)</code></pre>
+
+</section>
+
+<section>
+  <h2>🏠 13. Diccionarios en domótica</h2>
+
+  <p>
+    Los diccionarios también pueden representar dispositivos
+    de una casa inteligente.
+  </p>
+
+  <pre><code>lampara = {
+    "nombre": "Lampara sala",
+    "estado": "apagada",
+    "potencia": 60
+}</code></pre>
+
+  <p>
+    Si un sensor detecta movimiento:
+  </p>
+
+  <pre><code>movimiento = True
+
+if movimiento:
+    lampara["estado"] = "encendida"
+
+print(lampara["estado"])</code></pre>
+
+  <p>
+    El diccionario ahora contiene el nuevo estado de la lámpara.
+  </p>
+</section>
+
+<section>
+  <h2>🧩 14. Ejercicio guiado: hacer que el rover decida</h2>
+
+  <p>
+    Ahora construiremos paso a paso una decisión para nuestro rover
+    utilizando un sensor de distancia.
+  </p>
+
+  <h3>🔹 Paso 1: crear el sensor</h3>
+
+  <pre><code>sensor = {
+    "tipo": "distancia",
+    "valor": 12,
+    "unidad": "cm"
+}</code></pre>
+
+  <h3>🔹 Paso 2: comprobar la distancia</h3>
+
+  <pre><code>print(sensor["valor"])</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>12</code></pre>
+
+  <h3>🔹 Paso 3: crear la decisión</h3>
+
+  <pre><code>if sensor["valor"] &lt; 20:
+    print("DETENER ROBOT")</code></pre>
+
+  <h3>🔹 Paso 4: agregar una segunda posibilidad</h3>
+
+  <pre><code>if sensor["valor"] &lt; 20:
+    print("DETENER ROBOT")
+
+else:
+    print("AVANZAR")</code></pre>
+
+  <h3>🔹 Paso 5: probar otro valor</h3>
+
+  <p>
+    Cambia:
+  </p>
+
+  <pre><code>"valor": 12</code></pre>
+
+  <p>
+    por:
+  </p>
+
+  <pre><code>"valor": 50</code></pre>
+
+  <p>
+    Ahora el robot tomará una decisión diferente.
+  </p>
+
+  <p>
+    🎯 Acabamos de construir la lógica básica de un robot que utiliza
+    información organizada dentro de un diccionario para decidir
+    qué hacer.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 15. Diccionarios + funciones</h2>
+
+  <p>
+    Ahora combinaremos dos conceptos que ya conocemos:
+    <strong>diccionarios y funciones</strong>.
+  </p>
+
+  <pre><code>def revisar_robot(robot):
+
+    if robot["estado"] == "activo":
+        print("Robot funcionando")
+
+    else:
+        print("Robot detenido")
+
+
+robot = {
+    "nombre": "Rover",
+    "estado": "activo"
+}
+
+revisar_robot(robot)</code></pre>
+
+  <p>
+    La función recibe el diccionario del robot y utiliza su información
+    para tomar una decisión.
+  </p>
+</section>
+
+<section>
+  <h2>🚀 16. Estamos construyendo un sistema real</h2>
+
+  <p>
+    Observa cómo se van conectando los conocimientos de las lecciones
+    anteriores:
+  </p>
+
+  <pre><code>sensor
+   ↓
+diccionario
+   ↓
+función
+   ↓
+decisión
+   ↓
+actuador</code></pre>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <pre><code>sensor = {
+    "tipo": "distancia",
+    "valor": 12
+}
+
+if sensor["valor"] &lt; 20:
+    print("Obstáculo detectado")
+    print("Detener motores")</code></pre>
+
+  <p>
+    Esta es la lógica básica que posteriormente podremos conectar con
+    sensores y motores reales.
+  </p>
+</section>
+
+<section>
+  <h2>🧪 17. Tu experimento</h2>
+
+  <p>
+    Ahora es tu turno.
+  </p>
+
+  <p>
+    Crea un diccionario llamado <strong>robot</strong> que contenga:
+  </p>
+
+  <ul>
+    <li>Nombre.</li>
+    <li>Número de ruedas.</li>
+    <li>Velocidad.</li>
+    <li>Dirección.</li>
+    <li>Estado.</li>
+  </ul>
+
+  <p>
+    Después:
+  </p>
+
+  <ol>
+    <li>Muestra el nombre.</li>
+    <li>Cambia la velocidad.</li>
+    <li>Cambia el estado.</li>
+    <li>Agrega información sobre un sensor.</li>
+    <li>Muestra nuevamente todo el diccionario.</li>
+  </ol>
+
+  <p>
+    💡 Intenta hacerlo sin mirar los ejemplos anteriores.
+  </p>
+</section>
+
+<section>
+  <h2>🚀 18. Reto del robot</h2>
+
+  <p>
+    Crea un diccionario que represente un sensor de distancia.
+  </p>
+
+  <p>
+    Debe contener:
+  </p>
+
+  <ul>
+    <li>Tipo de sensor.</li>
+    <li>Distancia medida.</li>
+    <li>Unidad.</li>
+    <li>Estado del robot.</li>
+  </ul>
+
+  <p>
+    Después utiliza <strong>if / elif / else</strong>:
+  </p>
+
+  <ul>
+    <li>Menos de 15 cm → detenerse.</li>
+    <li>Entre 15 y 40 cm → reducir velocidad.</li>
+    <li>Más de 40 cm → avanzar.</li>
+  </ul>
+
+  <p>
+    🎯 Intenta además modificar el valor de
+    <strong>estado</strong> dentro del diccionario.
+  </p>
+</section>
+
+<section>
+  <h2>🌱 19. Desafío de automatización</h2>
+
+  <p>
+    Crea un diccionario para un sistema de riego automático.
+  </p>
+
+  <p>
+    Debe contener:
+  </p>
+
+  <ul>
+    <li>Humedad del suelo.</li>
+    <li>Estado de la bomba.</li>
+    <li>Estado del sistema.</li>
+  </ul>
+
+  <p>
+    Programa una decisión:
+  </p>
+
+  <ul>
+    <li>Si la humedad es menor de 40 → encender bomba.</li>
+    <li>Si la humedad es 40 o mayor → apagar bomba.</li>
+  </ul>
+
+  <p>
+    🎯 El objetivo es que el diccionario no solamente almacene
+    información, sino que forme parte del comportamiento del sistema.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 Lo que acabas de aprender</h2>
+
+  <ul>
+    <li>Qué es un diccionario.</li>
+    <li>Qué son las claves y los valores.</li>
+    <li>Cómo obtener información.</li>
+    <li>Cómo modificar información.</li>
+    <li>Cómo agregar nuevos datos.</li>
+    <li>Cómo representar un robot mediante un diccionario.</li>
+    <li>Cómo representar sensores y dispositivos.</li>
+    <li>Cómo recorrer un diccionario con <strong>for</strong>.</li>
+    <li>Cómo combinar diccionarios con <strong>if</strong>.</li>
+    <li>Cómo combinar diccionarios con funciones.</li>
+    <li>Cómo utilizar diccionarios en robótica y automatización.</li>
+  </ul>
+
+  <p>
+    🚀 <strong>
+      Ahora Python no solamente puede guardar datos.
+      Puede organizar la información de todo un sistema.
+    </strong>
+  </p>
+
+  <p>
+    Y eso nos acerca cada vez más a construir robots y sistemas
+    de automatización reales.
+  </p>
+</section>
+
+<nav class="navegacion-lecciones">
+
+  <a href="leccion6.html">
+    ← Lección anterior
+  </a>
+
+  <a href="index.html">
+    🏠 Menú principal
+  </a>
+
+  <a href="leccion8.html">
+    Siguiente lección →
+  </a>
+
+</nav>
+ 
+<footer>
+  <p>
+    🐍 Aprende Python · Robótica · Automatización · Escuelas rurales · Sin internet
+  </p>
+</footer>
+
+</body>
+</html>

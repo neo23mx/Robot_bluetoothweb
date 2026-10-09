@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+<meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
+
+  <title>Control del Rover</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 15px;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+
+    h1 {
+      margin: 10px 0 5px 0;
+    }
+
+    .estado {
+      font-size: 18px;
+      margin: 15px;
+      font-weight: bold;
+    }
+
+
+    /* ========================= */
+    /* CONTROL DEL ROVER */
+    /* ========================= */
+
+    .controles {
+      width: 100%;
+      margin: 25px auto;
+      text-align: center;
+    }
+
+
+    .fila {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+
+    /* ========================= */
+    /* BOTONES */
+    /* ========================= */
+
+    button {
+      width: 75px;
+      height: 70px;
+
+      flex: 0 0 75px;
+
+      font-size: 30px;
+
+      border: none;
+      border-radius: 15px;
+
+      background: #2196f3;
+      color: white;
+
+      box-shadow: 0 4px 8px #999;
+
+      touch-action: none;
+    }
+
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+
+    .alto {
+      background: #d32f2f;
+    }
+
+
+    /* ========================= */
+    /* VELOCIDAD */
+    /* ========================= */
+
+    .velocidad {
+      margin-top: 30px;
+    }
+
+
+    input {
+      width: 80%;
+      max-width: 280px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>🤖 Control del Rover</h1>
+
+  <div class="estado" id="estado">
+    Rover detenido
+  </div>
+
+  <!-- ========================= -->
+
+  <!-- CONTROLES -->
+
+  <!-- ========================= -->
+
+  <div class="controles">
+
+```
+<!-- ARRIBA -->
+
+<div class="fila">
+
+  <button id="adelante">
+    ⬆️
+  </button>
+
+</div>
+
+
+<!-- IZQUIERDA / STOP / DERECHA -->
+
+<div class="fila">
+
+  <button id="izquierda">
+    ⬅️
+  </button>
+
+  <button class="alto" id="alto">
+    ⏹️
+  </button>
+
+  <button id="derecha">
+    ➡️
+  </button>
+
+</div>
+
+
+<!-- ABAJO -->
+
+<div class="fila">
+
+  <button id="atras">
+    ⬇️
+  </button>
+
+</div>
+```
+
+  </div>
+
+  <!-- ========================= -->
+
+  <!-- VELOCIDAD MOTOR 1 -->
+
+  <!-- ========================= -->
+
+  <div class="velocidad">
+
+```
+<h3>Velocidad motor 1</h3>
+
+<input
+  type="range"
+  min="0"
+  max="100"
+  value="50"
+  id="velocidad1">
+
+<p>
+  <span id="valor1">50</span> %
+</p>
+```
+
+  </div>
+
+  <!-- ========================= -->
+
+  <!-- VELOCIDAD MOTOR 2 -->
+
+  <!-- ========================= -->
+
+  <div class="velocidad">
+
+```
+<h3>Velocidad motor 2</h3>
+
+<input
+  type="range"
+  min="0"
+  max="100"
+  value="50"
+  id="velocidad2">
+
+<p>
+  <span id="valor2">50</span> %
+</p>
+```
+
+  </div>
+
+  <!-- ========================= -->
+
+  <!-- JAVASCRIPT -->
+
+  <!-- ========================= -->
+
+  <script>
+
+
+    function enviar(comando) {
+
+      fetch("/robot?cmd=" + comando);
+
+    }
+
+
+    function mover(comando, texto) {
+
+      enviar(comando);
+
+      document.getElementById("estado").innerHTML =
+        texto;
+
+    }
+
+
+    function parar() {
+
+      enviar("M0");
+
+      document.getElementById("estado").innerHTML =
+        "⏹️ Rover detenido";
+
+    }
+
+
+    function configurarBoton(
+      id,
+      comando,
+      texto
+    ) {
+
+      const boton =
+        document.getElementById(id);
+
+
+      /* CELULAR */
+
+      boton.addEventListener(
+        "touchstart",
+        function(e) {
+
+          e.preventDefault();
+
+          mover(comando, texto);
+
+        }
+      );
+
+
+      boton.addEventListener(
+        "touchend",
+        function(e) {
+
+          e.preventDefault();
+
+          parar();
+
+        }
+      );
+
+
+      boton.addEventListener(
+        "touchcancel",
+        function(e) {
+
+          e.preventDefault();
+
+          parar();
+
+        }
+      );
+
+
+      /* COMPUTADORA */
+
+      boton.addEventListener(
+        "mousedown",
+        function(e) {
+
+          e.preventDefault();
+
+          mover(comando, texto);
+
+        }
+      );
+
+
+      boton.addEventListener(
+        "mouseup",
+        function(e) {
+
+          e.preventDefault();
+
+          parar();
+
+        }
+      );
+
+    }
+
+
+    /* ========================= */
+    /* MOVIMIENTOS */
+    /* ========================= */
+
+    configurarBoton(
+      "adelante",
+      "MA",
+      "⬆️ Rover avanzando"
+    );
+
+
+    configurarBoton(
+      "atras",
+      "MR",
+      "⬇️ Rover retrocediendo"
+    );
+
+
+    configurarBoton(
+      "izquierda",
+      "MI",
+      "⬅️ Rover girando izquierda"
+    );
+
+
+    configurarBoton(
+      "derecha",
+      "MD",
+      "➡️ Rover girando derecha"
+    );
+
+
+    /* ========================= */
+    /* STOP */
+    /* ========================= */
+
+    document
+      .getElementById("alto")
+      .addEventListener(
+        "click",
+        function() {
+
+          parar();
+
+        }
+      );
+
+
+    /* ========================= */
+    /* VELOCIDAD MOTOR 1 */
+    /* ========================= */
+
+    document
+      .getElementById("velocidad1")
+      .addEventListener(
+        "input",
+        function() {
+
+          document.getElementById(
+            "valor1"
+          ).innerHTML = this.value;
+
+          enviar(
+            "V" + this.value
+          );
+
+        }
+      );
+
+
+    /* ========================= */
+    /* VELOCIDAD MOTOR 2 */
+    /* ========================= */
+
+    document
+      .getElementById("velocidad2")
+      .addEventListener(
+        "input",
+        function() {
+
+          document.getElementById(
+            "valor2"
+          ).innerHTML = this.value;
+
+          enviar(
+            "v" + this.value
+          );
+
+        }
+      );
+
+
+  </script>
+
+</body>
+
+</html>

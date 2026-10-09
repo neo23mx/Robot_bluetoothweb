@@ -1,0 +1,226 @@
+from machine import Pin, PWM
+import time
+
+
+# --------------------------------
+# BUZZER EN GP1
+# --------------------------------
+
+_buzzer = PWM(Pin(1))
+_buzzer.duty_u16(0)
+
+
+# --------------------------------
+# NOTAS INDIVIDUALES
+# --------------------------------
+
+NOTAS = {
+    "A": 262,   # DO
+    "B": 294,   # RE
+    "C": 330,   # MI
+    "D": 349,   # FA
+    "E": 392,   # SOL
+    "F": 440,   # LA
+    "G": 494,   # SI
+    "H": 523    # DO agudo
+}
+
+
+# --------------------------------
+# MELODIAS
+# (frecuencia, duracion ms)
+# 0 = silencio
+# --------------------------------
+
+MARIO = [
+    (659, 150), (659, 150), (0, 80),
+    (659, 150), (0, 80),
+    (523, 150), (659, 150),
+    (784, 300), (0, 150),
+    (392, 300),
+
+    (523, 180), (392, 180),
+    (330, 180), (440, 180),
+    (494, 180), (466, 180),
+    (440, 180), (392, 180),
+    (659, 180), (784, 220),
+    (880, 300), (0, 120),
+
+    (698, 180), (784, 180),
+    (659, 180), (523, 180),
+    (587, 180), (494, 180),
+    (523, 300)
+]
+
+
+STARWARS = [
+   (392, 300), (392, 300), (392, 300),
+    (311, 200), (466, 100),
+    (392, 300),
+    (311, 200), (466, 100),
+    (392, 450),
+
+    (587, 250), (587, 250),
+    (587, 250), (622, 180),
+    (466, 180), (370, 180),
+    (311, 180), (466, 180),
+    (392, 400),
+
+    (784, 250), (392, 180),
+    (392, 180), (784, 250),
+    (740, 180), (698, 180),
+    (659, 180), (622, 180),
+    (659, 400)
+]
+
+
+TETRIS = [
+     (659, 180), (494, 90),
+    (523, 90), (587, 180),
+    (523, 90), (494, 90),
+    (440, 180), (440, 90),
+    (523, 90), (659, 180),
+    (587, 90), (523, 90),
+    (494, 220),
+
+    (523, 180), (587, 180),
+    (659, 180), (523, 180),
+    (440, 180), (440, 180),
+    (0, 80),
+    (587, 180), (698, 180),
+    (880, 220), (784, 180),
+    (698, 180), (659, 220),
+
+    (523, 180), (659, 180),
+    (587, 180), (494, 180),
+    (523, 180), (440, 300)
+]
+
+
+# --------------------------------
+# VARIABLES DE LA MELODIA
+# --------------------------------
+
+_melodia_actual = None
+_posicion = 0
+_inicio_nota = 0
+
+
+# --------------------------------
+# GENERAR SONIDO
+# --------------------------------
+
+def _sonar(frecuencia):
+
+    if frecuencia == 0:
+        _buzzer.duty_u16(0)
+
+    else:
+        _buzzer.freq(frecuencia)
+        _buzzer.duty_u16(32768)
+
+
+# --------------------------------
+# TOCAR NOTA INDIVIDUAL
+# --------------------------------
+
+def tocar(frecuencia):
+
+    global _melodia_actual
+
+    _melodia_actual = None
+    _sonar(frecuencia)
+
+
+# --------------------------------
+# APAGAR
+# --------------------------------
+
+def apagar():
+
+    global _melodia_actual
+
+    _melodia_actual = None
+    _buzzer.duty_u16(0)
+
+
+# --------------------------------
+# INICIAR MELODIA
+# --------------------------------
+
+def melodia(cancion):
+
+    global _melodia_actual
+    global _posicion
+    global _inicio_nota
+
+    _melodia_actual = cancion
+    _posicion = 0
+
+    frecuencia, duracion = _melodia_actual[0]
+
+    _sonar(frecuencia)
+
+    _inicio_nota = time.ticks_ms()
+
+
+# --------------------------------
+# ACTUALIZAR MELODIA
+# --------------------------------
+
+def update():
+
+    global _melodia_actual
+    global _posicion
+    global _inicio_nota
+
+    if _melodia_actual is None:
+        return
+
+    frecuencia, duracion = _melodia_actual[_posicion]
+
+    ahora = time.ticks_ms()
+
+    if time.ticks_diff(ahora, _inicio_nota) >= duracion:
+
+        _posicion += 1
+
+        if _posicion >= len(_melodia_actual):
+
+            apagar()
+            return
+
+        frecuencia, duracion = _melodia_actual[_posicion]
+
+        _sonar(frecuencia)
+
+        _inicio_nota = ahora
+
+
+# --------------------------------
+# COMANDOS
+# --------------------------------
+
+def comando(dato):
+
+    dato = dato.strip().upper()
+
+    # Apagar
+    if dato == "X":
+        apagar()
+
+    # Notas
+    elif dato in NOTAS:
+        #bt.write("*Hola desde Pico*")
+        tocar(NOTAS[dato])
+
+    # Melodias
+    elif dato == "BM":
+        #bt.write("cancion Mario\n")
+        melodia(MARIO)
+
+    elif dato == "BS":
+        melodia(STARWARS)
+
+    elif dato == "BT":
+        melodia(TETRIS)

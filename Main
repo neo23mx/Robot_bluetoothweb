@@ -1,0 +1,31 @@
+from bluetooth_serial import BluetoothSerial
+import led
+import buzzer
+import motores2
+import time
+
+bt = BluetoothSerial("DIDAKTIKO23")
+
+while True:
+
+    if bt.available():
+
+        dato = bt.read()
+        dato = dato.strip()
+
+        print("RECIBIDO:", dato)
+
+        if dato.startswith("L"):
+            led.comando(dato)
+
+        elif dato in "ABCDEFGHX" or dato in ("BM", "BS", "BT"):
+            buzzer.comando(dato)
+            
+            # MOTORES     
+        elif dato.startswith("M") or dato.startswith("V") or dato.startswith("m") or dato.startswith("v"):
+            motores2.comando(dato)
+             
+    # Permite que las melodías sigan avanzando
+    buzzer.update()
+
+    time.sleep_ms(10)

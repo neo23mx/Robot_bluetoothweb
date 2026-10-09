@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 3 - Condicionales: el robot aprende a decidir</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 Lección 3: ¡Ahora el robot puede decidir!</h1>
+  <p>Condicionales en Python para robótica y automatización</p>
+</header>
+
+<section>
+  <h2>🚀 De un programa que obedece a un programa que piensa</h2>
+
+  <p>
+    Hasta ahora hemos aprendido a guardar información y trabajar con
+    datos. Pero un robot necesita hacer algo más:
+    <strong>tomar decisiones.</strong>
+  </p>
+
+  <p>
+    Imagina un robot de cuatro ruedas avanzando por un camino.
+    De repente, encuentra un obstáculo.
+  </p>
+
+  <p>
+    El robot necesita preguntarse:
+  </p>
+
+  <p>
+    <strong>¿Hay un obstáculo?</strong>
+  </p>
+
+  <p>
+    Si la respuesta es sí, debe detenerse.
+    Si la respuesta es no, puede continuar avanzando.
+  </p>
+
+  <p>
+    Esa es precisamente la función de los
+    <strong>condicionales</strong> en Python.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 1. La decisión más importante: if</h2>
+
+  <p>
+    La palabra <strong>if</strong> significa "si".
+  </p>
+
+  <p>
+    Podemos decirle a Python:
+  </p>
+
+  <p>
+    <strong>"Si ocurre esto, haz esto otro."</strong>
+  </p>
+
+  <p>
+    Observa este ejemplo de un robot:
+  </p>
+
+  <pre><code>distancia = 15
+
+if distancia &lt; 20:
+    print("¡Obstáculo detectado!")
+    print("Detener motores")</code></pre>
+
+  <p>
+    El sensor nos dice que el obstáculo está a 15 centímetros.
+  </p>
+
+  <p>
+    Python compara:
+  </p>
+
+  <pre><code>15 &lt; 20</code></pre>
+
+  <p>
+    Como la condición es verdadera, el robot recibe la instrucción:
+  </p>
+
+  <pre><code>¡Obstáculo detectado!
+Detener motores</code></pre>
+
+  <p>
+    🎯 <strong>Acabas de programar una decisión de un robot.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>⚙️ 2. if + else: ¿avanzar o detenerse?</h2>
+
+  <p>
+    Ahora podemos darle al robot dos posibilidades.
+  </p>
+
+  <pre><code>distancia = 50
+
+if distancia &lt; 20:
+    print("Obstáculo detectado")
+    print("Detener motores")
+else:
+    print("Camino libre")
+    print("Avanzar")</code></pre>
+
+  <p>
+    Si la distancia es menor de 20 cm, el robot se detiene.
+  </p>
+
+  <p>
+    Si no, el robot puede avanzar.
+  </p>
+
+  <p>
+    Esto se puede representar así:
+  </p>
+
+  <pre><code>             SENSOR
+                ↓
+        ¿Obstáculo cerca?
+           ↙          ↘
+         SÍ            NO
+         ↓              ↓
+     DETENER          AVANZAR</code></pre>
+
+</section>
+
+<section>
+  <h2>🤖 3. Un robot de cuatro ruedas toma decisiones</h2>
+
+  <p>
+    Ahora vamos a llevarlo un poco más lejos.
+  </p>
+
+  <p>
+    Supongamos que nuestro robot tiene cuatro ruedas y queremos que
+    pueda avanzar o detenerse dependiendo de lo que detecte su sensor.
+  </p>
+
+  <pre><code>distancia = 30
+
+if distancia &lt; 20:
+    print("Obstáculo detectado")
+    print("Motor izquierdo: DETENER")
+    print("Motor derecho: DETENER")
+
+else:
+    print("Camino libre")
+    print("Motor izquierdo: AVANZAR")
+    print("Motor derecho: AVANZAR")</code></pre>
+
+  <p>
+    Observa algo importante:
+  </p>
+
+  <p>
+    Python no está controlando directamente las ruedas en este ejemplo.
+    Primero estamos aprendiendo la <strong>lógica de decisión</strong>.
+  </p>
+
+  <p>
+    Más adelante podremos sustituir esos mensajes por instrucciones
+    reales para motores.
+  </p>
+
+  <p>
+    🔧 <strong>Primero aprendemos a pensar el comportamiento.
+    Después conectamos el comportamiento con el hardware.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🌱 4. La misma idea en un invernadero</h2>
+
+  <p>
+    Los condicionales no solamente sirven para robots.
+    También son fundamentales en la automatización.
+  </p>
+
+  <p>
+    Imagina un invernadero con un sensor de temperatura.
+  </p>
+
+  <pre><code>temperatura = 32
+
+if temperatura &gt; 30:
+    print("Temperatura alta")
+    print("Encender ventilación")
+
+else:
+    print("Temperatura adecuada")
+    print("Mantener ventilación apagada")</code></pre>
+
+  <p>
+    El sensor proporciona un dato.
+  </p>
+
+  <p>
+    Python analiza ese dato.
+  </p>
+
+  <p>
+    Y finalmente se toma una decisión.
+  </p>
+
+  <p>
+    <strong>Sensor → Python → Actuador</strong>
+  </p>
+
+  <p>
+    Esta estructura aparece constantemente en los sistemas de
+    automatización.
+  </p>
+</section>
+
+<section>
+  <h2>💧 5. Automatizando el riego</h2>
+
+  <p>
+    Ahora imaginemos un sensor que mide la humedad del suelo.
+  </p>
+
+  <pre><code>humedad = 35
+
+if humedad &lt; 40:
+    print("Suelo seco")
+    print("Encender bomba de agua")
+
+else:
+    print("Humedad adecuada")
+    print("Apagar bomba de agua")</code></pre>
+
+  <p>
+    Aquí aparece una de las ideas más importantes de la automatización:
+  </p>
+
+  <p>
+    <strong>El sistema puede reaccionar automáticamente a su entorno.</strong>
+  </p>
+
+  <p>
+    Nadie necesita estar presionando un botón constantemente.
+  </p>
+</section>
+
+<section>
+  <h2>🏠 6. También podemos automatizar una casa</h2>
+
+  <p>
+    Pensemos ahora en un sistema de domótica.
+  </p>
+
+  <p>
+    Tenemos un sensor de movimiento y una lámpara.
+  </p>
+
+  <pre><code>movimiento = True
+
+if movimiento:
+    print("Movimiento detectado")
+    print("Encender lámpara")
+
+else:
+    print("No hay movimiento")
+    print("Apagar lámpara")</code></pre>
+
+  <p>
+    El mismo concepto que utilizamos para el robot ahora controla una
+    parte de una casa.
+  </p>
+
+  <p>
+    🤖 Robot, 🌱 invernadero y 🏠 domótica pueden utilizar exactamente
+    la misma lógica de programación.
+  </p>
+</section>
+
+<section>
+  <h2>🔀 7. ¿Y si existen varias posibilidades?</h2>
+
+  <p>
+    A veces no tenemos solamente dos opciones.
+  </p>
+
+  <p>
+    Por ejemplo, un robot puede encontrarse con diferentes situaciones.
+  </p>
+
+  <pre><code>distancia = 35
+
+if distancia &lt; 15:
+    print("Obstáculo muy cerca")
+    print("Detener robot")
+
+elif distancia &lt; 40:
+    print("Obstáculo detectado")
+    print("Reducir velocidad")
+
+else:
+    print("Camino libre")
+    print("Avanzar normalmente")</code></pre>
+
+  <p>
+    Aquí aparece una nueva palabra:
+    <strong>elif</strong>.
+  </p>
+
+  <p>
+    <strong>elif</strong> permite comprobar otra condición cuando la
+    anterior no se cumplió.
+  </p>
+</section>
+
+<section>
+  <h2>🧩 8. Tres decisiones para un robot</h2>
+
+  <p>
+    Ahora nuestro robot puede tener tres comportamientos diferentes:
+  </p>
+
+  <ul>
+    <li>🛑 Detenerse.</li>
+    <li>🐢 Reducir velocidad.</li>
+    <li>🚀 Avanzar.</li>
+  </ul>
+
+  <p>
+    Podemos programarlo así:
+  </p>
+
+  <pre><code>distancia = 35
+
+if distancia &lt; 15:
+    print("DETENER ROBOT")
+
+elif distancia &lt; 40:
+    print("REDUCIR VELOCIDAD")
+
+else:
+    print("AVANZAR")</code></pre>
+
+  <p>
+    Cambia el valor de <strong>distancia</strong> y observa cómo cambia
+    el comportamiento del robot.
+  </p>
+</section>
+
+<section>
+  <h2>🧪 9. Tu primer experimento</h2>
+
+  <p>
+    Abre <strong>Thonny</strong> y escribe:
+  </p>
+
+  <pre><code>distancia = 50
+
+if distancia &lt; 15:
+    print("DETENER")
+
+elif distancia &lt; 40:
+    print("REDUCIR VELOCIDAD")
+
+else:
+    print("AVANZAR")</code></pre>
+
+  <p>
+    Ahora prueba diferentes valores:
+  </p>
+
+  <ul>
+    <li><strong>10</strong></li>
+    <li><strong>20</strong></li>
+    <li><strong>35</strong></li>
+    <li><strong>60</strong></li>
+  </ul>
+
+  <p>
+    Observa qué decisión toma el programa en cada caso.
+  </p>
+</section>
+
+<section>
+  <h2>🚀 10. Reto del robot</h2>
+
+  <p>
+    Programa un robot que pueda decidir qué hacer dependiendo de la
+    distancia a un obstáculo.
+  </p>
+
+  <p>Debe comportarse de esta manera:</p>
+
+  <ul>
+    <li>
+      Menos de 15 cm → <strong>detenerse</strong>.
+    </li>
+
+```
+<li>
+  Entre 15 y 40 cm → <strong>reducir velocidad</strong>.
+</li>
+
+<li>
+  Más de 40 cm → <strong>avanzar normalmente</strong>.
+</li>
+```
+
+  </ul>
+
+  <p>
+    Utiliza:
+  </p>
+
+  <pre><code>if
+elif
+else</code></pre>
+
+  <p>
+    💡 <strong>No copies el ejemplo anterior.</strong>
+    Intenta construirlo tú mismo.
+  </p>
+</section>
+
+<section>
+  <h2>🏆 Desafío de automatización</h2>
+
+  <p>
+    Ahora cambia completamente de escenario.
+  </p>
+
+  <p>
+    Imagina un invernadero inteligente.
+  </p>
+
+  <p>
+    El sensor proporciona la temperatura:
+  </p>
+
+  <pre><code>temperatura = 32</code></pre>
+
+  <p>
+    Programa el sistema para que:
+  </p>
+
+  <ul>
+    <li>
+      Si la temperatura es mayor o igual a 35 °C →
+      <strong>encender ventiladores</strong>.
+    </li>
+
+```
+<li>
+  Si está entre 25 °C y 34 °C →
+  <strong>mantener condiciones normales</strong>.
+</li>
+
+<li>
+  Si es menor de 25 °C →
+  <strong>mantener ventiladores apagados</strong>.
+</li>
+```
+
+  </ul>
+
+  <p>
+    🎯 Aquí estás utilizando exactamente el mismo concepto que utilizaste
+    con el robot.
+  </p>
+
+  <p>
+    <strong>Un sensor proporciona información → Python decide →
+    un actuador realiza una acción.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧠 Lo que acabas de aprender</h2>
+
+  <ul>
+    <li>Qué es una condición.</li>
+    <li>Cómo utilizar <strong>if</strong>.</li>
+    <li>Cómo utilizar <strong>else</strong>.</li>
+    <li>Cómo utilizar <strong>elif</strong>.</li>
+    <li>Cómo comparar valores.</li>
+    <li>Cómo utilizar decisiones en robótica.</li>
+    <li>Cómo utilizar decisiones en automatización.</li>
+    <li>Cómo un sensor puede provocar una acción.</li>
+  </ul>
+
+  <p>
+    🚀 <strong>Ya no solamente estás programando instrucciones.
+    Estás comenzando a programar comportamientos.</strong>
+  </p>
+</section>
+
+<!-- NAVEGACIÓN ENTRE LECCIONES -->
+
+<nav class="navegacion-lecciones">
+
+  <a href="leccion2.html">
+    ← Lección anterior
+  </a>
+
+  <a href="index.html">
+    🏠 Menú principal
+  </a>
+
+  <a href="leccion4.html">
+    Siguiente lección →
+  </a>
+
+</nav>
+
+<footer>
+  <p>
+    🐍 Aprende Python · Robótica · Automatización · Escuelas rurales · Sin internet
+  </p>
+</footer>
+
+</body>
+</html>

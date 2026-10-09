@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 4 - Bucles: el robot aprende a repetir</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 Lección 4: ¡El robot no se cansa!</h1>
+  <p>Bucles en Python para robótica y automatización</p>
+</header>
+
+<section>
+  <h2>🚀 ¿Y si el robot tiene que repetir una tarea?</h2>
+
+  <p>
+    En la lección anterior aprendimos a hacer que nuestro robot
+    <strong>tome decisiones</strong>.
+  </p>
+
+  <p>
+    Pero imagina que nuestro robot está avanzando por un terreno.
+    No queremos escribir:
+  </p>
+
+  <pre><code>avanzar()
+avanzar()
+avanzar()
+avanzar()
+avanzar()</code></pre>
+
+  <p>
+    ¿Y si queremos que avance durante cientos o miles de ciclos?
+  </p>
+
+  <p>
+    Necesitamos que Python pueda <strong>repetir instrucciones
+    automáticamente</strong>.
+  </p>
+
+  <p>
+    Para eso existen los <strong>bucles</strong>.
+  </p>
+</section>
+
+<section>
+  <h2>🔄 1. El bucle while</h2>
+
+  <p>
+    <strong>while</strong> significa "mientras".
+  </p>
+
+  <p>
+    Podemos decirle a Python:
+  </p>
+
+  <p>
+    <strong>"Mientras esta condición sea verdadera, continúa haciendo
+    esto."</strong>
+  </p>
+
+  <pre><code>contador = 0
+
+while contador &lt; 5:
+    print("Robot avanzando")
+    contador = contador + 1</code></pre>
+
+  <p>
+    El programa repetirá la instrucción mientras
+    <strong>contador sea menor que 5</strong>.
+  </p>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>Robot avanzando
+Robot avanzando
+Robot avanzando
+Robot avanzando
+Robot avanzando</code></pre>
+
+</section>
+
+<section>
+  <h2>🤖 2. Un robot que revisa constantemente su entorno</h2>
+
+  <p>
+    En robótica, los sensores normalmente deben revisarse
+    constantemente.
+  </p>
+
+  <p>
+    Podemos imaginarlo así:
+  </p>
+
+  <pre><code>while True:
+
+    leer_sensor()
+
+    tomar_decision()
+
+    mover_robot()</code></pre>
+
+  <p>
+    El robot hace algo parecido a esto una y otra vez:
+  </p>
+
+  <ol>
+    <li>👀 Lee sus sensores.</li>
+    <li>🧠 Analiza la información.</li>
+    <li>⚙️ Ejecuta una acción.</li>
+    <li>🔄 Vuelve a revisar.</li>
+  </ol>
+
+  <p>
+    Esta idea es fundamental en los robots autónomos.
+  </p>
+</section>
+
+<section>
+  <h2>🛑 3. while + if: el robot detecta obstáculos</h2>
+
+  <p>
+    Ahora vamos a combinar lo aprendido en la Lección 3 con los
+    bucles.
+  </p>
+
+  <pre><code>distancia = 50
+
+while distancia &gt; 0:
+
+    if distancia &lt; 20:
+        print("¡Obstáculo!")
+        print("Detener robot")
+    else:
+        print("Camino libre")
+        print("Avanzar")
+
+    distancia = distancia - 10</code></pre>
+
+  <p>
+    Aquí tenemos dos conceptos trabajando juntos:
+  </p>
+
+  <p>
+    <strong>while</strong> → repetir.
+  </p>
+
+  <p>
+    <strong>if</strong> → decidir.
+  </p>
+
+  <p>
+    Esta combinación es extremadamente importante en robótica.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 4. El ciclo de un robot autónomo</h2>
+
+  <p>
+    Un robot autónomo puede trabajar siguiendo continuamente este ciclo:
+  </p>
+
+  <pre><code>        ┌──────────────┐
+        │ Leer sensores│
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │   Decidir    │
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │    Actuar    │
+        └──────┬───────┘
+               ↓
+             REPETIR
+               ↑
+               └────────</code></pre>
+
+  <p>
+    Esto se conoce como un <strong>ciclo de control</strong>.
+  </p>
+
+  <p>
+    Muchos robots y sistemas automáticos funcionan siguiendo
+    precisamente este principio.
+  </p>
+</section>
+
+<section>
+  <h2>🌱 5. Un invernadero que trabaja solo</h2>
+
+  <p>
+    Ahora llevemos el mismo concepto a un invernadero.
+  </p>
+
+  <p>
+    Imaginemos que tenemos un sensor de temperatura.
+  </p>
+
+  <pre><code>temperatura = 32
+
+while True:
+
+    if temperatura &gt; 30:
+        print("Temperatura alta")
+        print("Encender ventilador")
+    else:
+        print("Temperatura adecuada")
+        print("Apagar ventilador")</code></pre>
+
+  <p>
+    El sistema puede revisar continuamente la temperatura y decidir
+    qué hacer.
+  </p>
+
+  <p>
+    En un sistema real, el valor de <strong>temperatura</strong>
+    cambiaría porque vendría directamente de un sensor.
+  </p>
+</section>
+
+<section>
+  <h2>💧 6. Riego automático</h2>
+
+  <p>
+    Podemos hacer exactamente lo mismo con la humedad del suelo.
+  </p>
+
+  <pre><code>humedad = 35
+
+while True:
+
+    if humedad &lt; 40:
+        print("Suelo seco")
+        print("Encender bomba")
+    else:
+        print("Humedad adecuada")
+        print("Apagar bomba")</code></pre>
+
+  <p>
+    El programa no necesita que una persona esté revisando
+    constantemente el suelo.
+  </p>
+
+  <p>
+    El sistema puede hacerlo automáticamente.
+  </p>
+</section>
+
+<section>
+  <h2>🏠 7. Domótica: una casa que responde</h2>
+
+  <p>
+    Los bucles también pueden utilizarse en sistemas de domótica.
+  </p>
+
+  <p>
+    Imaginemos un sensor de movimiento.
+  </p>
+
+  <pre><code>movimiento = True
+
+while True:
+
+    if movimiento:
+        print("Movimiento detectado")
+        print("Encender lámpara")
+    else:
+        print("Sin movimiento")
+        print("Apagar lámpara")</code></pre>
+
+  <p>
+    En una instalación real, el sensor cambiaría continuamente entre
+    diferentes estados.
+  </p>
+
+  <p>
+    El programa estaría revisándolo constantemente.
+  </p>
+</section>
+
+<section>
+  <h2>🔢 8. El bucle for</h2>
+
+  <p>
+    No siempre queremos repetir algo indefinidamente.
+  </p>
+
+  <p>
+    A veces sabemos exactamente cuántas veces queremos repetir una
+    acción.
+  </p>
+
+  <p>
+    Para eso podemos utilizar <strong>for</strong>.
+  </p>
+
+  <pre><code>for i in range(5):
+    print("Motor funcionando")</code></pre>
+
+  <p>
+    Este programa repite la instrucción <strong>5 veces</strong>.
+  </p>
+
+  <p>
+    Podemos utilizarlo, por ejemplo, para realizar una secuencia de
+    movimientos.
+  </p>
+
+  <pre><code>for i in range(4):
+    print("Avanzar")
+    print("Detener")</code></pre>
+
+  <p>
+    El robot realizará esa secuencia cuatro veces.
+  </p>
+</section>
+
+<section>
+  <h2>🤖 9. ¿Cuándo usar while y cuándo usar for?</h2>
+
+  <table>
+    <tr>
+      <th>Bucle</th>
+      <th>¿Cuándo utilizarlo?</th>
+    </tr>
+
+```
+<tr>
+  <td><strong>while</strong></td>
+  <td>
+    Cuando queremos que el sistema continúe trabajando mientras
+    una condición se cumpla.
+  </td>
+</tr>
+
+<tr>
+  <td><strong>for</strong></td>
+  <td>
+    Cuando sabemos cuántas veces queremos repetir una acción.
+  </td>
+</tr>
+```
+
+  </table>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <ul>
+    <li>
+      🤖 Robot revisando sensores continuamente → <strong>while</strong>
+    </li>
+
+```
+<li>
+  🔄 Repetir una secuencia 10 veces → <strong>for</strong>
+</li>
+
+<li>
+  🌱 Revisar constantemente la temperatura → <strong>while</strong>
+</li>
+
+<li>
+  ⚙️ Mover un mecanismo 5 veces → <strong>for</strong>
+</li>
+```
+
+  </ul>
+</section>
+
+<section>
+  <h2>🧪 10. Tu primer experimento</h2>
+
+  <p>
+    Abre <strong>Thonny</strong> y escribe:
+  </p>
+
+  <pre><code>for i in range(5):
+    print("🤖 Robot avanzando")</code></pre>
+
+  <p>
+    Ejecuta el programa y observa cuántas veces aparece el mensaje.
+  </p>
+
+  <p>
+    Ahora cambia:
+  </p>
+
+  <pre><code>range(5)</code></pre>
+
+  <p>
+    por:
+  </p>
+
+  <pre><code>range(10)</code></pre>
+
+  <p>
+    ¿Qué sucedió?
+  </p>
+</section>
+
+<section>
+  <h2>🚀 11. Reto: el robot explorador</h2>
+
+  <p>
+    Imagina que tu robot de cuatro ruedas está explorando un terreno.
+  </p>
+
+  <p>
+    Queremos que repita esta secuencia:
+  </p>
+
+  <ol>
+    <li>Avanzar.</li>
+    <li>Revisar el sensor.</li>
+    <li>Tomar una decisión.</li>
+    <li>Continuar.</li>
+  </ol>
+
+  <p>
+    Crea un programa utilizando un bucle <strong>while</strong> y un
+    <strong>if</strong>.
+  </p>
+
+  <p>
+    El objetivo es construir la estructura:
+  </p>
+
+  <pre><code>while condición:
+
+    leer sensor
+
+    if condición:
+        detener
+    else:
+        avanzar</code></pre>
+
+  <p>
+    💡 Todavía no necesitas conectar motores ni sensores reales.
+    Primero estamos construyendo la lógica del robot.
+  </p>
+</section>
+
+<section>
+  <h2>🏆 12. Desafío de automatización</h2>
+
+  <p>
+    Ahora construye un pequeño sistema automático para un invernadero.
+  </p>
+
+  <p>
+    El sistema debe revisar continuamente la temperatura.
+  </p>
+
+  <p>
+    Utiliza:
+  </p>
+
+  <pre><code>while
+if
+else</code></pre>
+
+  <p>
+    El comportamiento debe ser:
+  </p>
+
+  <ul>
+    <li>
+      Temperatura mayor a 30 °C → encender ventilador.
+    </li>
+
+```
+<li>
+  Temperatura de 30 °C o menor → apagar ventilador.
+</li>
+```
+
+  </ul>
+
+  <p>
+    🎯 Recuerda:
+  </p>
+
+  <p>
+    <strong>
+      Sensor → decisión → actuador → volver a revisar
+    </strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧠 Lo que acabas de aprender</h2>
+
+  <ul>
+    <li>Qué es un bucle.</li>
+    <li>Cómo utilizar <strong>while</strong>.</li>
+    <li>Cómo utilizar <strong>for</strong>.</li>
+    <li>Cómo combinar <strong>while + if</strong>.</li>
+    <li>Cómo repetir acciones de un robot.</li>
+    <li>Cómo revisar sensores continuamente.</li>
+    <li>Cómo crear ciclos de automatización.</li>
+  </ul>
+
+  <p>
+    🚀 <strong>
+      Tu robot ya puede decidir y repetir.
+      En las siguientes lecciones comenzaremos a trabajar con
+      estructuras de datos para que pueda manejar cada vez más
+      información.
+    </strong>
+  </p>
+</section>
+
+<!-- NAVEGACIÓN ENTRE LECCIONES -->
+
+<nav class="navegacion-lecciones">
+
+  <a href="leccion3.html">
+    ← Lección anterior
+  </a>
+
+  <a href="index.html">
+    🏠 Menú principal
+  </a>
+
+  <a href="leccion5.html">
+    Siguiente lección →
+  </a>
+
+</nav>
+
+<footer>
+  <p>
+    🐍 Aprende Python · Robótica · Automatización · Escuelas rurales · Sin internet
+  </p>
+</footer>
+
+</body>
+</html>

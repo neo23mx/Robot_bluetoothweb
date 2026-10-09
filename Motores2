@@ -1,0 +1,252 @@
+from machine import Pin, PWM
+
+
+# --------------------------------
+# PINES DEL DRIVER L298N
+# --------------------------------
+
+# Motor izquierdo 1
+in1 = Pin(11, Pin.OUT)
+in2 = Pin(12, Pin.OUT)
+
+# Motor derecho 1
+in3 = Pin(16, Pin.OUT)
+in4 = Pin(17, Pin.OUT)
+
+# Motor izquierdo 2
+in5 = Pin(19, Pin.OUT)
+in6 = Pin(20, Pin.OUT)
+
+# Motor derecho 2
+in7 = Pin(26, Pin.OUT)
+in8 = Pin(27, Pin.OUT)
+
+# --------------------------------
+# CONTROL DE VELOCIDAD
+# --------------------------------
+
+ena1 = PWM(Pin(13))
+enb1 = PWM(Pin(18))
+
+ena2 = PWM(Pin(21))
+enb2 = PWM(Pin(28))
+
+ena1.freq(1000)
+enb1.freq(1000)
+
+ena2.freq(1000)
+enb2.freq(1000)
+
+# Velocidad inicial = 50%
+velocidad1 = int(65535 * 50 / 100)
+velocidad2 = int(65535 * 50 / 100)
+
+ena1.duty_u16(velocidad1)
+enb1.duty_u16(velocidad1)
+ena2.duty_u16(velocidad2)
+enb2.duty_u16(velocidad2)
+
+# --------------------------------
+# CONFIGURAR VELOCIDAD 0 - 100 %
+# --------------------------------
+
+def set_velocidad1(porcentaje1):
+
+    global velocidad1
+
+    # Limitar entre 0 y 100
+    porcentaje1 = max(0, min(100, porcentaje1))
+
+    # Convertir 0-100% a 0-65535
+    velocidad1 = int(porcentaje1 * 65535 / 100)
+
+    ena1.duty_u16(velocidad1)
+    enb1.duty_u16(velocidad1)
+
+    print("VELOCIDAD1:", porcentaje1, "%")
+
+def set_velocidad2(porcentaje2):
+
+    global velocidad2
+
+    # Limitar entre 0 y 100
+    porcentaje2 = max(0, min(100, porcentaje2))
+
+    # Convertir 0-100% a 0-65535
+    velocidad2 = int(porcentaje2 * 65535 / 100)
+
+    ena2.duty_u16(velocidad2)
+    enb2.duty_u16(velocidad2)
+
+    print("VELOCIDAD2:", porcentaje2, "%")
+
+# --------------------------------
+# PARAR
+# --------------------------------
+
+def parar():
+
+    in1.off()
+    in2.off()
+    in3.off()
+    in4.off()
+    in5.off()
+    in6.off()
+    in7.off()
+    in8.off()
+
+# --------------------------------
+# AVANZAR
+# --------------------------------
+
+def avanzar():
+
+    ena1.duty_u16(velocidad1)
+    enb1.duty_u16(velocidad1)
+    ena2.duty_u16(velocidad2)
+    enb2.duty_u16(velocidad2)
+
+    in1.on()
+    in2.off()
+    in3.on()
+    in4.off()
+    
+    in5.on()
+    in6.off()
+    in7.on()
+    in8.off()
+# --------------------------------
+# RETROCEDER
+# --------------------------------
+def retroceder():
+
+    ena1.duty_u16(velocidad1)
+    enb1.duty_u16(velocidad1)
+    ena2.duty_u16(velocidad2)
+    enb2.duty_u16(velocidad2)
+
+
+    in5.off()
+    in6.on()
+    in7.off()
+    in8.on()
+    
+    
+    in1.off()
+    in2.on()
+    in3.off()
+    in4.on()
+   
+
+# --------------------------------
+# GIRAR IZQUIERDA
+# --------------------------------
+
+def izquierda():
+
+    ena1.duty_u16(velocidad1)
+    enb1.duty_u16(velocidad1)
+    ena2.duty_u16(velocidad2)
+    enb2.duty_u16(velocidad2)
+
+    # Motor izquierdo hacia atras
+    in1.off()
+    in2.on()
+    # Motor derecho hacia adelante
+    in3.off()
+    in4.on()
+    
+     # Motor2 izquierdo hacia atras
+    in5.on()
+    in6.off()
+    # Motor2 derecho hacia adelante
+    in7.on()
+    in8.off()
+
+
+# --------------------------------
+# GIRAR DERECHA
+# --------------------------------
+
+def derecha():
+
+    ena1.duty_u16(velocidad1)
+    enb1.duty_u16(velocidad1)
+    ena2.duty_u16(velocidad2)
+    enb2.duty_u16(velocidad2)
+    
+    # Motor1 izquierdo hacia adelante
+    in1.on()
+    in2.off()
+    # Motor1 derecho hacia adelante
+    in3.on()
+    in4.off()
+    
+    # Motor2 izquierdo hacia atras
+    in5.off()
+    in6.on()
+    in8.on()
+    in7.off()
+    
+
+
+# --------------------------------
+# RECIBIR COMANDOS
+# --------------------------------
+
+def comando(dato):
+
+    dato = dato.strip()
+
+    # MOVIMIENTO
+
+    if dato == "MA":
+       # bt.write("*avanza*")
+        avanzar()
+
+    elif dato == "MR":
+        #bt.write("*retrocede*")
+        retroceder()
+
+    elif dato == "MI":
+        #bt.write("*gira I*")
+        izquierda()
+
+    elif dato == "MD":
+        #bt.write("*gira D*")
+        derecha()
+
+    elif dato == "M0":
+        parar()
+
+
+    # VELOCIDAD
+    # Ejemplo:
+    # V0
+    # V25
+    # V50
+    # V100
+
+    elif dato.startswith("V"):
+
+        try:
+
+            porcentaje1 = int(dato[1:])
+
+            set_velocidad1(porcentaje1)
+
+        except ValueError:
+
+            print("VELOCIDAD1 NO VALIDA")
+    
+    elif dato.startswith("v"):
+
+        try:
+
+            porcentaje2 = int(dato[1:])
+
+            set_velocidad2(porcentaje2)
+
+        except ValueError:
+
+            print("VELOCIDAD2 NO VALIDA")         

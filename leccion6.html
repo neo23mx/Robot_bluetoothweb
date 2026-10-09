@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 6 - Funciones: el robot aprende nuevas instrucciones</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 Lección 6: ¡El robot aprende nuevas instrucciones!</h1>
+  <p>Funciones en Python para robótica y automatización</p>
+</header>
+
+<section>
+  <h2>🚀 ¿Por qué necesitamos funciones?</h2>
+
+  <p>
+    Hasta ahora nuestro programa puede guardar información, calcular,
+    tomar decisiones, repetir instrucciones y trabajar con listas.
+  </p>
+
+  <p>
+    Pero imagina que tenemos un robot de cuatro ruedas.
+  </p>
+
+  <p>
+    El robot necesita realizar muchas veces acciones como:
+  </p>
+
+  <ul>
+    <li>Avanzar.</li>
+    <li>Detenerse.</li>
+    <li>Retroceder.</li>
+    <li>Girar.</li>
+    <li>Leer un sensor.</li>
+    <li>Encender un actuador.</li>
+  </ul>
+
+  <p>
+    Sería muy incómodo escribir todas las instrucciones del motor cada
+    vez que queremos avanzar.
+  </p>
+
+  <p>
+    Python nos permite crear nuestras propias instrucciones utilizando
+    <strong>funciones</strong>.
+  </p>
+
+  <p>
+    🎯 Una función es un conjunto de instrucciones que podemos
+    <strong>guardar y utilizar cada vez que lo necesitemos.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧩 1. Nuestra primera función</h2>
+
+  <p>
+    Una función se crea utilizando la palabra
+    <strong>def</strong>.
+  </p>
+
+  <pre><code>def avanzar():
+    print("El robot está avanzando")</code></pre>
+
+  <p>
+    Acabamos de crear una función llamada
+    <strong>avanzar</strong>.
+  </p>
+
+  <p>
+    Pero todavía no hemos ejecutado sus instrucciones.
+  </p>
+
+  <p>
+    Para utilizarla escribimos:
+  </p>
+
+  <pre><code>avanzar()</code></pre>
+
+  <p>
+    Python ejecutará:
+  </p>
+
+  <pre><code>El robot está avanzando</code></pre>
+
+  <p>
+    🎯 Hemos creado nuestra primera instrucción personalizada.
+  </p>
+</section>
+
+<section>
+  <h2>🤖 2. Crear varias instrucciones para el robot</h2>
+
+  <p>
+    Podemos crear diferentes funciones para controlar nuestro robot.
+  </p>
+
+  <pre><code>def avanzar():
+    print("Avanzar")
+
+def detener():
+    print("Detener")
+
+def retroceder():
+    print("Retroceder")
+
+def girar_derecha():
+    print("Girar a la derecha")</code></pre>
+
+  <p>
+    Ahora podemos utilizarlas cuando queramos.
+  </p>
+
+  <pre><code>avanzar()
+avanzar()
+girar_derecha()
+avanzar()
+detener()</code></pre>
+
+  <p>
+    Nuestro programa comienza a parecerse a un programa real de
+    control de robots.
+  </p>
+
+  <p>
+    En este momento las funciones solamente muestran mensajes.
+    Más adelante esos mismos nombres podrán controlar motores reales.
+  </p>
+</section>
+
+<section>
+  <h2>⚙️ 3. Las funciones evitan repetir código</h2>
+
+  <p>
+    Imagina que queremos encender una bomba de agua.
+  </p>
+
+  <p>
+    Sin una función podríamos escribir:
+  </p>
+
+  <pre><code>print("Encender bomba")
+print("Encender bomba")
+print("Encender bomba")</code></pre>
+
+  <p>
+    Pero podemos crear una función:
+  </p>
+
+  <pre><code>def encender_bomba():
+    print("Encender bomba")</code></pre>
+
+  <p>
+    Y utilizarla todas las veces que sea necesario:
+  </p>
+
+  <pre><code>encender_bomba()
+encender_bomba()
+encender_bomba()</code></pre>
+
+  <p>
+    El programa es más fácil de leer y de modificar.
+  </p>
+</section>
+
+<section>
+  <h2>📦 4. Las funciones pueden recibir información</h2>
+
+  <p>
+    Una función también puede recibir datos.
+  </p>
+
+  <p>
+    Por ejemplo, podemos crear una función que reciba una velocidad.
+  </p>
+
+  <pre><code>def avanzar(velocidad):
+    print("Avanzando a", velocidad, "%")</code></pre>
+
+  <p>
+    Ahora podemos utilizar diferentes velocidades:
+  </p>
+
+  <pre><code>avanzar(30)
+avanzar(50)
+avanzar(80)</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>Avanzando a 30 %
+Avanzando a 50 %
+Avanzando a 80 %</code></pre>
+
+  <p>
+    El valor que enviamos a la función se llama
+    <strong>argumento</strong>.
+  </p>
+</section>
+
+<section>
+  <h2>🚗 5. Controlar diferentes velocidades</h2>
+
+  <p>
+    Ahora podemos utilizar una función para representar diferentes
+    velocidades del robot.
+  </p>
+
+  <pre><code>def mover_robot(velocidad):
+    
+    if velocidad == 0:
+        print("Robot detenido")
+
+    else:
+        print("Robot avanzando a", velocidad, "%")</code></pre>
+
+  <p>
+    Podemos probar:
+  </p>
+
+  <pre><code>mover_robot(30)
+mover_robot(60)
+mover_robot(100)
+mover_robot(0)</code></pre>
+
+  <p>
+    Observa que dentro de una función también podemos utilizar
+    <strong>if</strong>.
+  </p>
+
+  <p>
+    Esto significa que podemos combinar los conocimientos de las
+    lecciones anteriores.
+  </p>
+</section>
+
+<section>
+  <h2>🌡️ 6. Una función para analizar un sensor</h2>
+
+  <p>
+    Las funciones también son muy útiles para sensores.
+  </p>
+
+  <p>
+    Imagina un sensor de temperatura.
+  </p>
+
+  <pre><code>def revisar_temperatura(temperatura):
+
+    if temperatura &gt; 30:
+        print("Temperatura alta")
+        print("Encender ventilación")
+
+    else:
+        print("Temperatura normal")</code></pre>
+
+  <p>
+    Ahora podemos utilizar la función con diferentes lecturas:
+  </p>
+
+  <pre><code>revisar_temperatura(25)
+revisar_temperatura(32)
+revisar_temperatura(28)</code></pre>
+
+  <p>
+    La misma función puede analizar todos esos valores.
+  </p>
+
+  <p>
+    🎯 Esto es muy importante en automatización:
+    <strong>una función puede convertirse en una herramienta para
+    analizar sensores.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🌱 7. Una función para controlar el riego</h2>
+
+  <p>
+    Ahora vamos a crear una función para nuestro invernadero.
+  </p>
+
+  <pre><code>def revisar_humedad(humedad):
+
+    if humedad &lt; 40:
+        print("Suelo seco")
+        print("Encender bomba")
+
+    else:
+        print("Humedad adecuada")
+        print("Apagar bomba")</code></pre>
+
+  <p>
+    Podemos probarla:
+  </p>
+
+  <pre><code>revisar_humedad(50)
+revisar_humedad(35)
+revisar_humedad(42)</code></pre>
+
+  <p>
+    Ahora tenemos una función que representa una pequeña parte de un
+    sistema de riego automático.
+  </p>
+</section>
+
+<section>
+  <h2>🔄 8. Funciones y listas</h2>
+
+  <p>
+    Podemos combinar lo aprendido en la lección anterior con las
+    funciones.
+  </p>
+
+  <pre><code>def revisar_temperatura(temperatura):
+
+    if temperatura &gt; 30:
+        print(temperatura, "→ ALTA")
+
+    else:
+        print(temperatura, "→ NORMAL")
+
+
+temperaturas = [25, 28, 31, 33, 27]
+
+for temperatura in temperaturas:
+    revisar_temperatura(temperatura)</code></pre>
+
+  <p>
+    Observa todo lo que está ocurriendo:
+  </p>
+
+  <pre><code>LISTA
+  ↓
+FOR
+  ↓
+FUNCIÓN
+  ↓
+IF
+  ↓
+DECISIÓN</code></pre>
+
+  <p>
+    🚀 Nuestro programa ya está empezando a tener la estructura de un
+    sistema de automatización.
+  </p>
+</section>
+
+<section>
+  <h2>🤖 9. Crear un pequeño programa para el robot</h2>
+
+  <p>
+    Ahora podemos crear varias funciones para representar el
+    comportamiento de nuestro robot.
+  </p>
+
+  <pre><code>def avanzar():
+    print("🤖 AVANZAR")
+
+
+def detener():
+    print("🛑 DETENER")
+
+
+def girar_derecha():
+    print("↪️ GIRAR DERECHA")
+
+
+def girar_izquierda():
+    print("↩️ GIRAR IZQUIERDA")</code></pre>
+
+  <p>
+    Después podemos construir una secuencia:
+  </p>
+
+  <pre><code>avanzar()
+avanzar()
+girar_derecha()
+avanzar()
+girar_izquierda()
+detener()</code></pre>
+
+  <p>
+    En un robot real, estas funciones podrían contener las instrucciones
+    necesarias para controlar los motores.
+  </p>
+
+  <p>
+    Por ahora estamos aprendiendo la estructura del programa.
+  </p>
+</section>
+
+<section>
+  <h2>🔙 10. Las funciones también pueden devolver información</h2>
+
+  <p>
+    Una función no solamente puede realizar una acción.
+    También puede <strong>devolver un resultado</strong>.
+  </p>
+
+  <p>
+    Para eso utilizamos <strong>return</strong>.
+  </p>
+
+  <pre><code>def sumar(a, b):
+    resultado = a + b
+    return resultado</code></pre>
+
+  <p>
+    Podemos utilizar la función:
+  </p>
+
+  <pre><code>total = sumar(20, 30)
+
+print(total)</code></pre>
+
+  <p>
+    Resultado:
+  </p>
+
+  <pre><code>50</code></pre>
+
+  <p>
+    En robótica esto será muy útil cuando una función tenga que
+    <strong>leer o calcular información</strong> y entregársela a otra
+    parte del programa.
+  </p>
+</section>
+
+<section>
+  <h2>📡 11. Una función que devuelve una lectura</h2>
+
+  <p>
+    Imaginemos que tenemos una función que representa la lectura de un
+    sensor.
+  </p>
+
+  <pre><code>def leer_temperatura():
+    temperatura = 28
+    return temperatura</code></pre>
+
+  <p>
+    Podemos guardar el resultado:
+  </p>
+
+  <pre><code>temperatura_actual = leer_temperatura()
+
+print(temperatura_actual)</code></pre>
+
+  <p>
+    Resultado:
+  </p>
+
+  <pre><code>28</code></pre>
+
+  <p>
+    En un sistema real, en lugar de colocar el número
+    <strong>28</strong>, la función podría obtener el valor directamente
+    desde un sensor.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 12. La gran idea de las funciones</h2>
+
+  <p>
+    Ahora podemos imaginar nuestro sistema de automatización dividido
+    en pequeñas tareas.
+  </p>
+
+  <pre><code>leer_sensor()
+        ↓
+analizar_dato()
+        ↓
+tomar_decision()
+        ↓
+activar_motor()</code></pre>
+
+  <p>
+    Cada función puede encargarse de una tarea específica.
+  </p>
+
+  <p>
+    Esto hace que los programas grandes sean mucho más fáciles de
+    entender, modificar y mantener.
+  </p>
+
+  <p>
+    🎯 <strong>
+      Una función convierte un conjunto de instrucciones en una
+      herramienta que podemos reutilizar.
+    </strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧪 13. Tu primer experimento</h2>
+
+  <p>
+    Abre <strong>Thonny</strong> y escribe:
+  </p>
+
+  <pre><code>def avanzar():
+    print("Robot avanzando")
+
+
+def detener():
+    print("Robot detenido")
+
+
+avanzar()
+avanzar()
+detener()</code></pre>
+
+  <p>
+    Después modifica el programa y crea una función llamada
+    <strong>girar()</strong>.
+  </p>
+
+  <p>
+    Utilízala para crear una pequeña secuencia de movimientos.
+  </p>
+</section>
+
+<section>
+  <h2>🚀 14. Reto del robot</h2>
+
+  <p>
+    Crea cuatro funciones:
+  </p>
+
+  <ul>
+    <li><strong>avanzar()</strong></li>
+    <li><strong>retroceder()</strong></li>
+    <li><strong>girar_derecha()</strong></li>
+    <li><strong>detener()</strong></li>
+  </ul>
+
+  <p>
+    Cada función debe mostrar en pantalla la acción que realizaría
+    el robot.
+  </p>
+
+  <p>
+    Después crea una secuencia utilizando las cuatro funciones.
+  </p>
+
+  <p>
+    Por ejemplo, imagina que el robot debe recorrer un pequeño camino,
+    girar y finalmente detenerse.
+  </p>
+
+  <p>
+    💡 Intenta crear tu propia secuencia sin copiar el ejemplo de la
+    lección.
+  </p>
+</section>
+
+<section>
+  <h2>🏆 15. Desafío de automatización</h2>
+
+  <p>
+    Ahora crea una función llamada:
+  </p>
+
+  <pre><code>controlar_humedad(humedad)</code></pre>
+
+  <p>
+    La función debe:
+  </p>
+
+  <ul>
+    <li>Si la humedad es menor de 40 → mostrar <strong>ENCENDER BOMBA</strong>.</li>
+    <li>Si la humedad es igual o mayor de 40 → mostrar <strong>APAGAR BOMBA</strong>.</li>
+  </ul>
+
+  <p>
+    Después prueba:
+  </p>
+
+  <pre><code>controlar_humedad(50)
+controlar_humedad(35)
+controlar_humedad(42)</code></pre>
+
+  <p>
+    🎯 Has creado una función que puede convertirse posteriormente
+    en una parte real de un sistema de riego automático.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 Lo que acabas de aprender</h2>
+
+  <ul>
+    <li>Qué es una función.</li>
+    <li>Cómo crear funciones utilizando <strong>def</strong>.</li>
+    <li>Cómo ejecutar una función.</li>
+    <li>Cómo enviar información a una función.</li>
+    <li>Qué son los argumentos.</li>
+    <li>Cómo utilizar <strong>return</strong>.</li>
+    <li>Cómo combinar funciones con <strong>if</strong>.</li>
+    <li>Cómo combinar funciones con listas y <strong>for</strong>.</li>
+    <li>Cómo utilizar funciones para organizar un sistema de robótica.</li>
+    <li>Cómo utilizar funciones para organizar un sistema de automatización.</li>
+  </ul>
+
+  <p>
+    🚀 <strong>
+      Ahora puedes crear tus propias instrucciones.
+      El siguiente paso será aprender a organizar información de una
+      manera más avanzada.
+    </strong>
+  </p>
+
+  <p>
+    En la siguiente lección aprenderemos sobre
+    <strong>diccionarios</strong>, que nos permitirán relacionar
+    información mediante nombres o claves.
+  </p>
+</section>
+
+<nav class="navegacion-lecciones">
+
+  <a href="leccion5.html">
+    ← Lección anterior
+  </a>
+
+  <a href="index.html">
+    🏠 Menú principal
+  </a>
+
+  <a href="leccion7.html">
+    Siguiente lección →
+  </a>
+
+</nav>
+
+<footer>
+  <p>
+    🐍 Aprende Python · Robótica · Automatización · Escuelas rurales · Sin internet
+  </p>
+</footer>
+
+</body>
+</html>

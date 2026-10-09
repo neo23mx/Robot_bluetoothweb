@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lección 5 - Listas: el robot aprende a manejar muchos datos</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 Lección 5: ¡El robot aprende a manejar muchos datos!</h1>
+  <p>Listas en Python para robótica y automatización</p>
+</header>
+
+<section>
+  <h2>🚀 Un robot necesita recordar información</h2>
+
+  <p>
+    Hasta ahora hemos aprendido a guardar información en variables.
+  </p>
+
+  <pre><code>temperatura = 28</code></pre>
+
+  <p>
+    Esto funciona perfectamente cuando solamente necesitamos guardar
+    <strong>un dato</strong>.
+  </p>
+
+  <p>
+    Pero imagina que un sensor de temperatura realiza una medición cada
+    cierto tiempo.
+  </p>
+
+  <p>
+    Ahora tenemos muchos datos:
+  </p>
+
+  <pre><code>25
+27
+28
+30
+29
+31</code></pre>
+
+  <p>
+    Sería muy incómodo crear una variable diferente para cada lectura.
+  </p>
+
+  <p>
+    Para eso existen las <strong>listas</strong>.
+  </p>
+
+  <p>
+    Una lista nos permite guardar <strong>muchos datos relacionados
+    dentro de una sola variable</strong>.
+  </p>
+</section>
+
+<section>
+  <h2>📦 1. Nuestra primera lista</h2>
+
+  <p>
+    Una lista se escribe utilizando corchetes:
+  </p>
+
+  <pre><code>temperaturas = [25, 27, 28, 30, 29, 31]</code></pre>
+
+  <p>
+    Ahora la variable <strong>temperaturas</strong> contiene seis datos.
+  </p>
+
+  <p>
+    Podemos imaginarla como una caja con varios compartimentos:
+  </p>
+
+  <pre><code>temperaturas
+
+[25] [27] [28] [30] [29] [31]</code></pre>
+
+  <p>
+    Cada posición contiene un dato diferente.
+  </p>
+
+  <p>
+    🎯 <strong>Una lista permite que nuestro programa trabaje con muchos
+    datos sin crear una variable para cada uno.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🌡️ 2. Una lista de lecturas de un sensor</h2>
+
+  <p>
+    Imagina que un sensor de temperatura de un invernadero realiza
+    varias mediciones.
+  </p>
+
+  <pre><code>temperaturas = [24, 26, 28, 30, 32]</code></pre>
+
+  <p>
+    Podemos mostrar toda la lista:
+  </p>
+
+  <pre><code>print(temperaturas)</code></pre>
+
+  <p>
+    Python mostrará:
+  </p>
+
+  <pre><code>[24, 26, 28, 30, 32]</code></pre>
+
+  <p>
+    Ahora nuestro programa tiene un pequeño historial de las mediciones
+    realizadas por el sensor.
+  </p>
+</section>
+
+<section>
+  <h2>🔎 3. ¿Cómo obtenemos un dato específico?</h2>
+
+  <p>
+    Podemos pedirle a Python un elemento determinado de la lista.
+  </p>
+
+  <pre><code>temperaturas = [24, 26, 28, 30, 32]
+
+print(temperaturas[0])</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>24</code></pre>
+
+  <p>
+    ⚠️ Hay algo muy importante:
+    <strong>Python comienza a contar las posiciones desde cero.</strong>
+  </p>
+
+  <pre><code>Posición:       0   1   2   3   4
+                ↓   ↓   ↓   ↓   ↓
+Temperatura:   [24, 26, 28, 30, 32]</code></pre>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <pre><code>temperaturas[0]   # 24
+temperaturas[2]   # 28
+temperaturas[4]   # 32</code></pre>
+
+</section>
+
+<section>
+  <h2>➕ 4. El robot puede agregar nuevos datos</h2>
+
+  <p>
+    Las listas pueden crecer.
+  </p>
+
+  <p>
+    Podemos utilizar <strong>append()</strong> para agregar un nuevo
+    dato al final.
+  </p>
+
+  <pre><code>temperaturas = [24, 26, 28]
+
+temperaturas.append(30)
+
+print(temperaturas)</code></pre>
+
+  <p>
+    Ahora tendremos:
+  </p>
+
+  <pre><code>[24, 26, 28, 30]</code></pre>
+
+  <p>
+    Esto resulta muy útil cuando un sensor realiza nuevas mediciones.
+  </p>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <pre><code>temperaturas = []
+
+temperaturas.append(25)
+temperaturas.append(27)
+temperaturas.append(29)
+temperaturas.append(31)
+
+print(temperaturas)</code></pre>
+
+  <p>
+    El programa fue construyendo la lista poco a poco.
+  </p>
+</section>
+
+<section>
+  <h2>🤖 5. Una lista de movimientos del robot</h2>
+
+  <p>
+    Las listas no solamente sirven para números.
+    También podemos guardar texto.
+  </p>
+
+  <p>
+    Imagina que queremos guardar una secuencia de movimientos para
+    nuestro robot de cuatro ruedas.
+  </p>
+
+  <pre><code>movimientos = [
+    "avanzar",
+    "avanzar",
+    "girar",
+    "avanzar",
+    "detener"
+]</code></pre>
+
+  <p>
+    Ahora el robot tiene una pequeña secuencia de instrucciones.
+  </p>
+
+  <p>
+    Podemos consultar una de ellas:
+  </p>
+
+  <pre><code>print(movimientos[2])</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>girar</code></pre>
+
+  <p>
+    🎯 Esto nos permite comenzar a pensar en algo muy importante:
+    <strong>un robot puede trabajar con una secuencia de acciones.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>⚙️ 6. Una lista de velocidades</h2>
+
+  <p>
+    También podemos guardar diferentes velocidades para los motores.
+  </p>
+
+  <pre><code>velocidades = [30, 50, 70, 100]</code></pre>
+
+  <p>
+    Podemos interpretar estos valores como porcentajes de velocidad.
+  </p>
+
+  <pre><code>30  → velocidad baja
+50  → velocidad media
+70  → velocidad alta
+100 → velocidad máxima</code></pre>
+
+  <p>
+    Por ejemplo:
+  </p>
+
+  <pre><code>print(velocidades[1])</code></pre>
+
+  <p>
+    El resultado será:
+  </p>
+
+  <pre><code>50</code></pre>
+
+</section>
+
+<section>
+  <h2>🔄 7. El robot puede recorrer toda la lista</h2>
+
+  <p>
+    Aquí vamos a combinar algo que ya aprendimos en la lección anterior:
+    el bucle <strong>for</strong>.
+  </p>
+
+  <p>
+    Supongamos que tenemos:
+  </p>
+
+  <pre><code>temperaturas = [24, 26, 28, 30, 32]</code></pre>
+
+  <p>
+    Podemos recorrer todos los valores:
+  </p>
+
+  <pre><code>for temperatura in temperaturas:
+    print(temperatura)</code></pre>
+
+  <p>
+    Python irá tomando cada dato de la lista:
+  </p>
+
+  <pre><code>24
+26
+28
+30
+32</code></pre>
+
+  <p>
+    💡 Aquí estamos combinando dos conceptos:
+  </p>
+
+  <p>
+    <strong>Lista = muchos datos</strong>
+  </p>
+
+  <p>
+    <strong>for = recorrer esos datos</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🧠 8. El robot puede analizar cada lectura</h2>
+
+  <p>
+    Ahora vamos a combinar listas con lo que aprendimos en la lección 3:
+    los condicionales.
+  </p>
+
+  <pre><code>temperaturas = [24, 26, 31, 35, 28]
+
+for temperatura in temperaturas:
+
+    if temperatura &gt; 30:
+        print("Temperatura alta")
+
+    else:
+        print("Temperatura normal")</code></pre>
+
+  <p>
+    El programa revisa cada medición de la lista.
+  </p>
+
+  <p>
+    Podemos pensar en el proceso así:
+  </p>
+
+  <pre><code>LISTA DE DATOS
+      ↓
+     FOR
+      ↓
+¿La temperatura es alta?
+      ↓
+   IF / ELSE
+      ↓
+    ACCIÓN</code></pre>
+
+  <p>
+    🚀 Ahora Python ya no solamente recibe un dato.
+    <strong>Puede analizar muchos datos uno después de otro.</strong>
+  </p>
+</section>
+
+<section>
+  <h2>🌱 9. Aplicación: un invernadero inteligente</h2>
+
+  <p>
+    Imagina que nuestro sistema registra la humedad del suelo durante
+    diferentes momentos del día.
+  </p>
+
+  <pre><code>humedad = [45, 42, 38, 35, 30]</code></pre>
+
+  <p>
+    Podemos revisar cada lectura:
+  </p>
+
+  <pre><code>for valor in humedad:
+
+    if valor &lt; 40:
+        print("Suelo seco")
+        print("Encender bomba")
+
+    else:
+        print("Humedad adecuada")</code></pre>
+
+  <p>
+    Esto representa una parte de un sistema de automatización real:
+  </p>
+
+  <p>
+    <strong>
+      Sensor → guardar datos → analizar datos → decidir → activar actuador
+    </strong>
+  </p>
+
+  <p>
+    Más adelante podremos sustituir estos datos de ejemplo por lecturas
+    reales de sensores.
+  </p>
+</section>
+
+<section>
+  <h2>🏠 10. Aplicación: domótica</h2>
+
+  <p>
+    Las listas también pueden utilizarse para controlar diferentes
+    dispositivos de una casa.
+  </p>
+
+  <pre><code>dispositivos = [
+    "lampara",
+    "ventilador",
+    "puerta",
+    "alarma"
+]</code></pre>
+
+  <p>
+    Podemos recorrer la lista:
+  </p>
+
+  <pre><code>for dispositivo in dispositivos:
+    print(dispositivo)</code></pre>
+
+  <p>
+    Esto nos permite imaginar sistemas donde Python administra
+    diferentes dispositivos automáticamente.
+  </p>
+</section>
+
+<section>
+  <h2>🧪 11. Tu primer experimento</h2>
+
+  <p>
+    Abre <strong>Thonny</strong> y escribe:
+  </p>
+
+  <pre><code>temperaturas = [22, 25, 28, 31, 34]
+
+for temperatura in temperaturas:
+
+    if temperatura &gt; 30:
+        print(temperatura, "→ TEMPERATURA ALTA")
+
+    else:
+        print(temperatura, "→ temperatura normal")</code></pre>
+
+  <p>
+    Ejecuta el programa y observa cómo Python revisa todos los valores
+    de la lista.
+  </p>
+
+  <p>
+    Después cambia algunos valores y vuelve a ejecutar el programa.
+  </p>
+</section>
+
+<section>
+  <h2>🚀 12. Reto del robot</h2>
+
+  <p>
+    Ahora vas a programar el comportamiento de un robot de cuatro
+    ruedas utilizando una lista de movimientos.
+  </p>
+
+  <p>
+    Crea una lista que contenga:
+  </p>
+
+  <ul>
+    <li>avanzar</li>
+    <li>avanzar</li>
+    <li>girar</li>
+    <li>avanzar</li>
+    <li>detener</li>
+  </ul>
+
+  <p>
+    Después utiliza un <strong>for</strong> para recorrer la lista y
+    mostrar cada movimiento.
+  </p>
+
+  <p>
+    💡 Intenta hacerlo sin copiar el ejemplo de esta lección.
+  </p>
+</section>
+
+<section>
+  <h2>🏆 13. Desafío de automatización</h2>
+
+  <p>
+    Ahora imagina que un sensor de humedad del suelo realizó cinco
+    mediciones:
+  </p>
+
+  <pre><code>humedad = [50, 45, 38, 35, 42]</code></pre>
+
+  <p>
+    Programa un sistema que revise cada medición.
+  </p>
+
+  <p>
+    Si la humedad es menor de <strong>40</strong>, debe mostrar:
+  </p>
+
+  <pre><code>ENCENDER BOMBA</code></pre>
+
+  <p>
+    Si la humedad es igual o mayor de 40, debe mostrar:
+  </p>
+
+  <pre><code>BOMBA APAGADA</code></pre>
+
+  <p>
+    🎯 Para resolverlo necesitarás combinar:
+  </p>
+
+  <pre><code>lista
+for
+if
+else</code></pre>
+
+  <p>
+    Acabas de construir la lógica básica de un sistema de riego
+    automático.
+  </p>
+</section>
+
+<section>
+  <h2>🧠 14. Lo que acabas de aprender</h2>
+
+  <ul>
+    <li>Qué es una lista.</li>
+    <li>Cómo crear una lista.</li>
+    <li>Cómo guardar números y textos.</li>
+    <li>Cómo acceder a elementos de una lista.</li>
+    <li>Por qué Python comienza las posiciones en cero.</li>
+    <li>Cómo agregar elementos utilizando <strong>append()</strong>.</li>
+    <li>Cómo recorrer una lista utilizando <strong>for</strong>.</li>
+    <li>Cómo combinar listas con condicionales.</li>
+    <li>Cómo utilizar listas con datos de sensores.</li>
+    <li>Cómo utilizar listas para movimientos de un robot.</li>
+  </ul>
+
+  <p>
+    🚀 <strong>
+      Ahora tu programa puede trabajar con muchos datos y analizarlos
+      uno por uno.
+    </strong>
+  </p>
+
+  <p>
+    En la siguiente lección aprenderemos a organizar nuestro programa
+    utilizando <strong>funciones</strong>, lo que permitirá crear
+    instrucciones reutilizables para nuestro robot y nuestros sistemas
+    de automatización.
+  </p>
+</section>
+
+<nav class="navegacion-lecciones">
+
+  <a href="leccion4.html">
+    ← Lección anterior
+  </a>
+
+  <a href="index.html">
+    🏠 Menú principal
+  </a>
+
+  <a href="leccion6.html">
+    Siguiente lección →
+  </a>
+
+</nav>
+
+<footer>
+  <p>
+    🐍 Aprende Python · Robótica · Automatización · Escuelas rurales · Sin internet
+  </p>
+</footer>
+
+</body>
+</html>
